@@ -60,7 +60,7 @@ public:
 		{
 			return ErrorCode;
 		}
-	};
+	};//
 	MosyModuleManager();
 	RestfulControllerTemplate LoadRestfulController(MosyEnvironment* Environment, MosyValue ControllerName);
 	ViewControllerTemplate LoadViewController(MosyEnvironment* Environment, MosyValue ControllerName);
