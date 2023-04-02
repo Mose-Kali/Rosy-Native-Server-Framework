@@ -1,6 +1,33 @@
 #include "pch.h"
 #include "MosyResponseSerializer.h"
 
+std::string string_To_UTF8(const std::string& str)
+{
+	int nwLen = ::MultiByteToWideChar(CP_ACP, 0, str.c_str(), -1, NULL, 0);
+
+	wchar_t* pwBuf = new wchar_t[nwLen + 1];//一定要加1，不然会出现尾巴
+	ZeroMemory(pwBuf, nwLen * 2 + 2);
+
+	::MultiByteToWideChar(CP_ACP, 0, str.c_str(), str.length(), pwBuf, nwLen);
+
+	int nLen = ::WideCharToMultiByte(CP_UTF8, 0, pwBuf, -1, NULL, NULL, NULL, NULL);
+
+	char* pBuf = new char[nLen + 1];
+	ZeroMemory(pBuf, nLen + 1);
+
+	::WideCharToMultiByte(CP_UTF8, 0, pwBuf, nwLen, pBuf, nLen, NULL, NULL);
+
+	std::string retStr(pBuf);
+
+	delete[]pwBuf;
+	delete[]pBuf;
+
+	pwBuf = NULL;
+	pBuf = NULL;
+
+	return retStr;
+}
+
 MosyResponsePackage MosyResponseSerializer::Serialize(ResponseStatus Status, MosyDataPackage DataPackage)
 {
 	MosyResponsePackage Response;
@@ -26,7 +53,7 @@ MosyResponsePackage MosyResponseSerializer::Serialize(ResponseStatus Status, Mos
 	case MOSY_200:
 
 		wsprintfW(sss, L"%ld", DataPackage.Data.length());
-		str = L"HTTP/1.1 200 \r\nConnection: keep-alive\r\nServer:Mosy-Server-Framework\r\nContent-Length: ";
+		str = L"HTTP/1.1 200 \r\nConnection: keep-alive\r\nAccess-Control-Allow-Origin:*\r\nServer:Mosy-Server-Framework\r\nContent-Length: ";
 		str += sss;
 		str += L"\r\nContent-Type: application/json\r\n\r\n";
 		Response.Head = str;
@@ -250,7 +277,8 @@ MosyResponsePackage MosyResponseSerializer::Serialize(ResponseStatus Status, Mos
 		break;
 	}
 	//Response.Body = DataPackage.Data.data();
-	Response.Body.insert(Response.Body.begin(), DataPackage.Data.c_str(), DataPackage.Data.c_str() + DataPackage.Data.length());
+	std::string stt = string_To_UTF8(DataPackage.Data);
+	Response.Body.insert(Response.Body.begin(), stt.data(), stt.data() + stt.length());
 	Response.Size = DataPackage.Data.length();
 	return Response;
 }

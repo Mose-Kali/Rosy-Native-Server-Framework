@@ -56,7 +56,7 @@ MosyModuleManager::MosyModuleManager()
 	LoadControllerRegistry();
 }
 
-RestfulControllerTemplate MosyModuleManager::LoadRestfulController(MosyValue ControllerName)
+RestfulControllerTemplate MosyModuleManager::LoadRestfulController(MosyEnvironment* Environment, MosyValue ControllerName)
 {
 	try
 	{
@@ -68,7 +68,18 @@ RestfulControllerTemplate MosyModuleManager::LoadRestfulController(MosyValue Con
 			GetPrivateProfileStringW(ModuleName.GetString().c_str(), L"Path", L"__NOT_FOUND__", Ret, MAX_PATH, ControllerModulesRegistry.GetString().c_str());
 			MosyValue ModulePath(Ret);
 			Instance = LoadLibraryW(ModulePath.GetString().c_str());
-			ModuleList.insert_or_assign(ModuleName.GetString(), Instance);
+			if (Instance) {
+				MosyModuleInitialize ModuleInitialize = (MosyModuleInitialize)GetProcAddress(Instance, "Initialize");
+				if (ModuleInitialize) {
+					(*ModuleInitialize)(Environment);
+				}
+				ModuleList.insert_or_assign(ModuleName.GetString(), Instance);
+			}
+			else {
+				int Err = GetLastError();
+				throw MosyModuleLoader::MosyModuleLoaderException(MosyModuleLoader::MOSY_MODULE_LOADER_FAILED_TO_LOAD_RESTFUL_CONTROLLER);
+				return NULL;
+			}
 		}
 		else
 		{
@@ -97,7 +108,7 @@ RestfulControllerTemplate MosyModuleManager::LoadRestfulController(MosyValue Con
 	}
 }
 
-ViewControllerTemplate MosyModuleManager::LoadViewController(MosyValue ControllerName)
+ViewControllerTemplate MosyModuleManager::LoadViewController(MosyEnvironment* Environment, MosyValue ControllerName)
 {
 	try
 	{
@@ -109,6 +120,10 @@ ViewControllerTemplate MosyModuleManager::LoadViewController(MosyValue Controlle
 			GetPrivateProfileStringW(ModuleName.GetString().c_str(), L"Path", L"__NOT_FOUND__", Ret, MAX_PATH, ControllerModulesRegistry.GetString().c_str());
 			MosyValue ModulePath(Ret);
 			Instance = LoadLibraryW(ModulePath.GetString().c_str());
+			MosyModuleInitialize ModuleInitialize = (MosyModuleInitialize)GetProcAddress(Instance, "Initialize");
+			if (ModuleInitialize) {
+				(*ModuleInitialize)(Environment);
+			}
 			ModuleList.insert_or_assign(ModuleName.GetString(), Instance);
 		}
 		else
@@ -179,16 +194,57 @@ MosyFunctionTemplate MosyModuleManager::LoadFunction(MosyValue FunctionName)
 	}
 }
 
-MosyValue MosyModuleManager::ExecuteRestfulController(MosyValue ControllerName, MosyEnvironment Environment, MosyControllerParams Params)
+MosyInterceptor MosyModuleManager::LoadInterceptor(MosyValue InterceptorName)
 {
-	RestfulControllerTemplate Controller = LoadRestfulController(ControllerName);
-	return (*Controller)(Environment,Params);
+	try
+	{
+		HINSTANCE Instance;
+		MosyValue ModuleName = GetFunctionAtModule(InterceptorName);
+		if (ModuleList.count(ModuleName.GetString()) == 0)
+		{
+			wchar_t Ret[MAX_PATH];
+			GetPrivateProfileStringW(ModuleName.GetString().c_str(), L"Path", L"__NOT_FOUND__", Ret, MAX_PATH, ControllerModulesRegistry.GetString().c_str());
+			MosyValue ModulePath(Ret);
+			Instance = LoadLibraryW(ModulePath.GetString().c_str());
+			ModuleList.insert_or_assign(ModuleName.GetString(), Instance);
+		}
+		else
+		{
+			Instance = ModuleList[ModuleName.GetString()];
+		}
+		MosyFunctionTemplate Controller = (MosyFunctionTemplate)GetProcAddress(Instance, MosyString::WString2String(InterceptorName.GetString()).c_str());
+		if (Controller == NULL)
+		{
+			int Err = GetLastError();
+			throw MosyModuleLoader::MosyModuleLoaderException(MosyModuleLoader::MOSY_MODULE_LOADER_FAILED_TO_LOAD_RESTFUL_CONTROLLER);
+			return NULL;
+		}
+		return Controller;
+	}
+	catch (MosyModuleLoader::MosyModuleLoaderException e)
+	{
+		MosyLogger::Log(MosyValue(L"Mosy Module Manager Error:" + MosyString::String2WString(e.what())));
+		throw MosyModuleException((MosyModuleErrorCode)e.ErrorCode);
+		return NULL;
+	}
+	catch (exception e)
+	{
+		MosyLogger::Log(MosyValue(L"Mosy Module Manager Error:Unknow Error!"));
+		throw MosyModuleException(MosyModuleManager::MOSY_MODULE_UNKNOW_ERROR);
+		return NULL;
+	}
 }
 
-MosyViewModule MosyModuleManager::ExecuteViewController(MosyValue ControllerName, MosyEnvironment Environment, MosyControllerParams Params)
+MosyValue MosyModuleManager::ExecuteRestfulController(MosyValue ControllerName, MosyEnvironment* Environment, MosyControllerParams Params)
 {
-	ViewControllerTemplate Controller = LoadViewController(ControllerName);
-	return (*Controller)(Environment, Params);
+	RestfulControllerTemplate Controller = LoadRestfulController(Environment, ControllerName);
+	return (*Controller)(*Environment,Params);
+}
+
+MosyViewModule MosyModuleManager::ExecuteViewController(MosyValue ControllerName, MosyEnvironment* Environment, MosyControllerParams Params)
+{
+	ViewControllerTemplate Controller = LoadViewController(Environment, ControllerName);
+	return (*Controller)(*Environment, Params);
 }
 
 MosyFunctionResult MosyModuleManager::ExecuteFunction(MosyValue ControllerName, MosyEnvironment Environment, MosyControllerParams Params)

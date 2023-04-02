@@ -1,9 +1,12 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.960
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32714.290
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Mosy Web Server Framework", "Mosy Web Server Framework\Mosy Web Server Framework.vcxproj", "{AC7CB7E4-9D5E-4815-B922-8DF8A9CED4D7}"
+	ProjectSection(ProjectDependencies) = postProject
+		{DC1B3827-2405-4A09-9E39-350607C35C47} = {DC1B3827-2405-4A09-9E39-350607C35C47}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MosySocketModule", "Win32SocketLib\Win32SocketLib.vcxproj", "{C6549537-33E7-47DE-96A3-00A4B353E19D}"
 EndProject
@@ -42,6 +45,22 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestModule", "TestModule\TestModule.vcxproj", "{DC1B3827-2405-4A09-9E39-350607C35C47}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MosyRequestWrapper", "MosyRequestWrapper\MosyRequestWrapper.vcxproj", "{FE1719BA-E480-499D-9F82-E41FBD17D7AD}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MosyJSONSerializer", "MosyJSONSerializer\MosyJSONSerializer.vcxproj", "{BD477B08-6222-45FA-8CF3-41222F31CA8C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Debugger", "Debugger", "{2E54FC6A-173E-4153-9548-77511E4AD78D}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MosyModuleDebugger", "MosyModuleDebugger\MosyModuleDebugger.vcxproj", "{99766226-C76B-4E3F-A387-E9E00187ED47}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Rhodes Island PRTS Service", "Rhodes Island PRTS Service\Rhodes Island PRTS Service.vcxproj", "{BD8CEE71-206A-4D38-AC22-7B9F3880B9E2}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MosyProtector", "MosyProtector\MosyProtector.vcxproj", "{98162167-D5E9-4499-8169-C6E7AFAC9685}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RosyAudioLevel", "RosyAudioLevel\RosyAudioLevel.vcxproj", "{0513845C-74B5-49A3-909E-6967ACDAB745}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MosyWebSocketModule", "MosyWebSocketModule\MosyWebSocketModule.vcxproj", "{9C7B190E-67D0-4FAF-8947-7651112545C1}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RosyDesktopCore", "RosyDesktopCore\RosyDesktopCore.vcxproj", "{F51683D0-DF53-47AC-BB76-FB84BD68597A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -203,12 +222,71 @@ Global
 		{FE1719BA-E480-499D-9F82-E41FBD17D7AD}.Release|x64.Build.0 = Release|x64
 		{FE1719BA-E480-499D-9F82-E41FBD17D7AD}.Release|x86.ActiveCfg = Release|Win32
 		{FE1719BA-E480-499D-9F82-E41FBD17D7AD}.Release|x86.Build.0 = Release|Win32
+		{BD477B08-6222-45FA-8CF3-41222F31CA8C}.Debug|x64.ActiveCfg = Debug|x64
+		{BD477B08-6222-45FA-8CF3-41222F31CA8C}.Debug|x64.Build.0 = Debug|x64
+		{BD477B08-6222-45FA-8CF3-41222F31CA8C}.Debug|x86.ActiveCfg = Debug|Win32
+		{BD477B08-6222-45FA-8CF3-41222F31CA8C}.Debug|x86.Build.0 = Debug|Win32
+		{BD477B08-6222-45FA-8CF3-41222F31CA8C}.Release|x64.ActiveCfg = Release|x64
+		{BD477B08-6222-45FA-8CF3-41222F31CA8C}.Release|x64.Build.0 = Release|x64
+		{BD477B08-6222-45FA-8CF3-41222F31CA8C}.Release|x86.ActiveCfg = Release|Win32
+		{BD477B08-6222-45FA-8CF3-41222F31CA8C}.Release|x86.Build.0 = Release|Win32
+		{99766226-C76B-4E3F-A387-E9E00187ED47}.Debug|x64.ActiveCfg = Debug|x64
+		{99766226-C76B-4E3F-A387-E9E00187ED47}.Debug|x64.Build.0 = Debug|x64
+		{99766226-C76B-4E3F-A387-E9E00187ED47}.Debug|x86.ActiveCfg = Debug|Win32
+		{99766226-C76B-4E3F-A387-E9E00187ED47}.Debug|x86.Build.0 = Debug|Win32
+		{99766226-C76B-4E3F-A387-E9E00187ED47}.Release|x64.ActiveCfg = Release|x64
+		{99766226-C76B-4E3F-A387-E9E00187ED47}.Release|x64.Build.0 = Release|x64
+		{99766226-C76B-4E3F-A387-E9E00187ED47}.Release|x86.ActiveCfg = Release|Win32
+		{99766226-C76B-4E3F-A387-E9E00187ED47}.Release|x86.Build.0 = Release|Win32
+		{BD8CEE71-206A-4D38-AC22-7B9F3880B9E2}.Debug|x64.ActiveCfg = Debug|x64
+		{BD8CEE71-206A-4D38-AC22-7B9F3880B9E2}.Debug|x64.Build.0 = Debug|x64
+		{BD8CEE71-206A-4D38-AC22-7B9F3880B9E2}.Debug|x86.ActiveCfg = Debug|Win32
+		{BD8CEE71-206A-4D38-AC22-7B9F3880B9E2}.Debug|x86.Build.0 = Debug|Win32
+		{BD8CEE71-206A-4D38-AC22-7B9F3880B9E2}.Release|x64.ActiveCfg = Release|x64
+		{BD8CEE71-206A-4D38-AC22-7B9F3880B9E2}.Release|x64.Build.0 = Release|x64
+		{BD8CEE71-206A-4D38-AC22-7B9F3880B9E2}.Release|x86.ActiveCfg = Release|Win32
+		{BD8CEE71-206A-4D38-AC22-7B9F3880B9E2}.Release|x86.Build.0 = Release|Win32
+		{98162167-D5E9-4499-8169-C6E7AFAC9685}.Debug|x64.ActiveCfg = Debug|x64
+		{98162167-D5E9-4499-8169-C6E7AFAC9685}.Debug|x64.Build.0 = Debug|x64
+		{98162167-D5E9-4499-8169-C6E7AFAC9685}.Debug|x86.ActiveCfg = Debug|Win32
+		{98162167-D5E9-4499-8169-C6E7AFAC9685}.Debug|x86.Build.0 = Debug|Win32
+		{98162167-D5E9-4499-8169-C6E7AFAC9685}.Release|x64.ActiveCfg = Release|x64
+		{98162167-D5E9-4499-8169-C6E7AFAC9685}.Release|x64.Build.0 = Release|x64
+		{98162167-D5E9-4499-8169-C6E7AFAC9685}.Release|x86.ActiveCfg = Release|Win32
+		{98162167-D5E9-4499-8169-C6E7AFAC9685}.Release|x86.Build.0 = Release|Win32
+		{0513845C-74B5-49A3-909E-6967ACDAB745}.Debug|x64.ActiveCfg = Debug|x64
+		{0513845C-74B5-49A3-909E-6967ACDAB745}.Debug|x64.Build.0 = Debug|x64
+		{0513845C-74B5-49A3-909E-6967ACDAB745}.Debug|x86.ActiveCfg = Debug|Win32
+		{0513845C-74B5-49A3-909E-6967ACDAB745}.Debug|x86.Build.0 = Debug|Win32
+		{0513845C-74B5-49A3-909E-6967ACDAB745}.Release|x64.ActiveCfg = Release|x64
+		{0513845C-74B5-49A3-909E-6967ACDAB745}.Release|x64.Build.0 = Release|x64
+		{0513845C-74B5-49A3-909E-6967ACDAB745}.Release|x86.ActiveCfg = Release|Win32
+		{0513845C-74B5-49A3-909E-6967ACDAB745}.Release|x86.Build.0 = Release|Win32
+		{9C7B190E-67D0-4FAF-8947-7651112545C1}.Debug|x64.ActiveCfg = Debug|x64
+		{9C7B190E-67D0-4FAF-8947-7651112545C1}.Debug|x64.Build.0 = Debug|x64
+		{9C7B190E-67D0-4FAF-8947-7651112545C1}.Debug|x86.ActiveCfg = Debug|Win32
+		{9C7B190E-67D0-4FAF-8947-7651112545C1}.Debug|x86.Build.0 = Debug|Win32
+		{9C7B190E-67D0-4FAF-8947-7651112545C1}.Release|x64.ActiveCfg = Release|x64
+		{9C7B190E-67D0-4FAF-8947-7651112545C1}.Release|x64.Build.0 = Release|x64
+		{9C7B190E-67D0-4FAF-8947-7651112545C1}.Release|x86.ActiveCfg = Release|Win32
+		{9C7B190E-67D0-4FAF-8947-7651112545C1}.Release|x86.Build.0 = Release|Win32
+		{F51683D0-DF53-47AC-BB76-FB84BD68597A}.Debug|x64.ActiveCfg = Debug|x64
+		{F51683D0-DF53-47AC-BB76-FB84BD68597A}.Debug|x64.Build.0 = Debug|x64
+		{F51683D0-DF53-47AC-BB76-FB84BD68597A}.Debug|x86.ActiveCfg = Debug|Win32
+		{F51683D0-DF53-47AC-BB76-FB84BD68597A}.Debug|x86.Build.0 = Debug|Win32
+		{F51683D0-DF53-47AC-BB76-FB84BD68597A}.Release|x64.ActiveCfg = Release|x64
+		{F51683D0-DF53-47AC-BB76-FB84BD68597A}.Release|x64.Build.0 = Release|x64
+		{F51683D0-DF53-47AC-BB76-FB84BD68597A}.Release|x86.ActiveCfg = Release|Win32
+		{F51683D0-DF53-47AC-BB76-FB84BD68597A}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{DC1B3827-2405-4A09-9E39-350607C35C47} = {093414FA-8112-4E1C-9EF6-E7AFA7CA210E}
+		{99766226-C76B-4E3F-A387-E9E00187ED47} = {2E54FC6A-173E-4153-9548-77511E4AD78D}
+		{0513845C-74B5-49A3-909E-6967ACDAB745} = {093414FA-8112-4E1C-9EF6-E7AFA7CA210E}
+		{F51683D0-DF53-47AC-BB76-FB84BD68597A} = {093414FA-8112-4E1C-9EF6-E7AFA7CA210E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {000B169B-6A8F-422C-B3E1-8E209B588A58}

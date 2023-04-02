@@ -2,6 +2,7 @@
 #include "MosyResponsePackage.h"
 #include "MosyDataPackage.h"
 #include "MosyHtmlPackage.h"
+#include "MosyString.h"
 
 enum ResponseStatus
 {

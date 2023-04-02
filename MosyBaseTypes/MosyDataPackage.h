@@ -5,7 +5,7 @@
 class _declspec(dllexport) MosyDataPackage:public MosyObject
 {
 public:
-	std::wstring Data;
+	std::string Data;
 	MosyDataPackage();
 	~MosyDataPackage();
 };

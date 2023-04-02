@@ -12,7 +12,7 @@ DWORD _stdcall MonitorThread(LPVOID LParam)
 	//MessageBox(NULL, L"MonitorRun!", L"Run", MB_OK);
 	MosyLogger::Log(MosyValue(L"Monitor Execute"));
 	WaitForSingleObject(TargetThread, INFINITE);
-	MosyLogger::Log(MosyValue(L"Monitor Terminal"));
-	MonitorStruct->Manager->Remove(TargetThread);
+	MosyLogger::Log(MosyValue(L"Monitor Terminal"));/*
+	MonitorStruct->Manager->Remove(TargetThread);*/
 	return 0;
 }

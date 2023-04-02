@@ -6,6 +6,6 @@ class _declspec(dllimport) MosyGobalManager
 {
 public:
 	static MosyRegistryManager RegistryManager;
-	static MosyThreadManager ThreadManager;
+	//static MosyThreadManager ThreadManager;
 };
 

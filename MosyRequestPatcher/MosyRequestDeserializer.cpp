@@ -3,7 +3,123 @@
 #ifndef DLL_FILE
 #define DLL_FILE
 #endif
+#include <iostream>
+#include <string>
+#include <string_view>
 using namespace std;
+
+std::wstring UrlDecode(std::wstring& SRC)
+{
+	std::wstring ret;
+	char ch;
+	int ii;
+	for (size_t i = 0; i < SRC.length(); i++) {
+		if (int(SRC[i]) == 37) {
+			swscanf_s(SRC.substr(i + 1, 2).c_str(), L"%x", &ii);
+			ch = static_cast<char>(ii);
+			ret += ch;
+			i = i + 2;
+		}
+		else {
+			ret += SRC[i];
+		}
+	}
+	return (ret);
+}
+
+static unsigned char dec_tab[256] = {
+			0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+			0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+			0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+			0,  1,  2,  3,  4,  5,  6,  7,  8,  9,  0,  0,  0,  0,  0,  0,
+			0, 10, 11, 12, 13, 14, 15,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+			0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+			0, 10, 11, 12, 13, 14, 15,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+			0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+			0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+			0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+			0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+			0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+			0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+			0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+			0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+			0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+};
+
+/**
+ * URL 解码函数
+ * @param str {const char*} 经URL编码后的字符串
+ * @return {char*} 解码后的字符串，返回值不可能为空，需要用 free 释放
+ */
+char* acl_url_decode(const char* str) {
+	int len = (int)strlen(str);
+	char* tmp = (char*)malloc(len + 1);
+
+	int i = 0, pos = 0;
+	for (i = 0; i < len; i++) {
+		if (str[i] != '%')
+			tmp[pos] = str[i];
+		else if (i + 2 >= len) {  /* check boundary */
+			tmp[pos++] = '%';  /* keep it */
+			if (++i >= len)
+				break;
+			tmp[pos] = str[i];
+			break;
+		}
+		else if (isalnum(str[i + 1]) && isalnum(str[i + 2])) {
+			tmp[pos] = (dec_tab[(unsigned char)str[i + 1]] << 4)
+				+ dec_tab[(unsigned char)str[i + 2]];
+			i += 2;
+		}
+		else
+			tmp[pos] = str[i];
+
+		pos++;
+	}
+
+	tmp[pos] = '\0';
+	return tmp;
+}
+
+static const char safe[] = { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,1,1,0,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 };
+std::string decode(const std::string& uri)
+{
+	//Note from RFC1630:  "Sequences which start with a percent sign  
+	//but are not followed by two hexadecimal characters (0-9,A-F) are reserved  
+	//for future extension"  
+	const unsigned char* ptr = (const unsigned char*)uri.c_str();
+	string ret;
+	ret.reserve(uri.length());
+	for (; *ptr; ++ptr)
+	{
+		if (*ptr == '%')
+		{
+			if (*(ptr + 1))
+			{
+				char a = *(ptr + 1);
+				char b = *(ptr + 2);
+				if (!((a >= 0x30 && a < 0x40) || (a >= 0x41 && a < 0x47))) continue;
+				if (!((b >= 0x30 && b < 0x40) || (b >= 0x41 && b < 0x47))) continue;
+				char buf[3];
+				buf[0] = a;
+				buf[1] = b;
+				buf[2] = 0;
+				ret += (char)strtoul(buf, NULL, 16);
+				ptr += 2;
+				continue;
+			}
+		}
+		if (*ptr == '+')
+		{
+			ret += ' ';
+			continue;
+		}
+		ret += *ptr;
+	}
+	return ret;
+}
+
+
 MosyRequestPackage MosyRequestDeserializer::Parse(std::wstring str)
 {
 	if (str == L"")
@@ -22,7 +138,7 @@ MosyRequestPackage MosyRequestDeserializer::Parse(std::wstring str)
 	if (index != url.npos)
 	{
 		wstring yrl_only = url.substr(0, index);
-		Package.TargetInterface = yrl_only;
+		Package.TargetInterface = UrlDecode(yrl_only);
 		wstring param = url.substr(index + 1, url.length());
 		int idx = 0;
 		int pindex = param.find(L"&");
@@ -42,11 +158,14 @@ MosyRequestPackage MosyRequestDeserializer::Parse(std::wstring str)
 		int nam = d.find(L"=");
 		wstring na = d.substr(0, nam);
 		wstring val = d.substr(nam + 1, d.length());
+		string sss = MosyString::WString2String(val);
+		//sss = UTF8_To_string(sss);
+		val = MosyString::String2WString(acl_url_decode(sss.c_str()));
 		Package.Params.insert_or_assign(na, MosyValue(val));
 	}
 	else
 	{
-		Package.TargetInterface = url;
+		Package.TargetInterface = MosyString::String2WString(acl_url_decode(MosyString::WString2String(url).c_str()));
 	}
 	//Parse Submit Mode
 	int modeindex = str.find(L"Content-Type: ");
@@ -125,6 +244,20 @@ MosyRequestPackage MosyRequestDeserializer::Parse(std::wstring str)
 				Package.Params.insert_or_assign(L"RawData", MosyValue(stt));
 			}
 		}
+	}
+	//Parse Connection Params
+	int cpos = str.find(L"\r\n");
+	while (str.find(L"\r\n", cpos + 1) != wstring::npos) {
+		int ParamEndIndex = str.find(L"\r\n", cpos + 1);
+		if (cpos >= str.find(L"\r\n\r\n")) {
+			break;
+		}
+		wstring ParamString = str.substr(cpos + 2, ParamEndIndex - cpos - 2);
+		int ParamSplitIndex = ParamString.find(L": ");
+		wstring ParamName = ParamString.substr(0, ParamSplitIndex);
+		wstring ParamValue = ParamString.substr(ParamSplitIndex + 2);
+		Package.RequsetParams.insert(pair<wstring, wstring>(ParamName, ParamValue));
+		cpos = ParamEndIndex;
 	}
 	return Package;
 }

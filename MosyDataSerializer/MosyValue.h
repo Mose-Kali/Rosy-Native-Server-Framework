@@ -13,7 +13,7 @@ MosyValue :
 #endif
 {
 protected:
-	std::wstring Value;
+	std::string Value;
 public:
 	MosyValue();
 	MosyValue(std::wstring s);

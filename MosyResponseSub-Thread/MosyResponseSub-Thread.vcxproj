@@ -23,33 +23,33 @@
     <ProjectGuid>{5112A248-37EE-42C7-8242-E253CD8FE51A}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>MosyResponseSubThread</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
     <ProjectName>MosyServerSub-Thread</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -160,6 +160,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="base64.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="MosyArray.h" />
     <ClInclude Include="MosyDataPackage.h" />
@@ -181,12 +182,15 @@
     <ClInclude Include="MosyString.h" />
     <ClInclude Include="MosyThreadManager.h" />
     <ClInclude Include="MosyValue.h" />
+    <ClInclude Include="MosyWebSocketManager.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="sha1.h" />
     <ClInclude Include="Sub-Thread.h" />
     <ClInclude Include="ThreadStruct.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="base64.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
@@ -194,6 +198,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="sha1.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MosyBaseTypes\MosyBaseTypes.vcxproj">
@@ -225,6 +230,9 @@
     </ProjectReference>
     <ProjectReference Include="..\MosyThreadManager\MosyThreadManager.vcxproj">
       <Project>{a219e6c6-39e2-4163-ba57-fb81e6e6139d}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\MosyWebSocketModule\MosyWebSocketModule.vcxproj">
+      <Project>{9c7b190e-67d0-4faf-8947-7651112545c1}</Project>
     </ProjectReference>
     <ProjectReference Include="..\Win32SocketLib\Win32SocketLib.vcxproj">
       <Project>{c6549537-33e7-47de-96a3-00a4b353e19d}</Project>

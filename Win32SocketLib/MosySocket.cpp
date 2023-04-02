@@ -113,6 +113,14 @@ void MosySocket::Send(std::string Msg) throw(MosySocketException)
 	}
 }
 
+void MosySocket::Send(char* pBuffer, int len) throw(MosySocketException)
+{
+	if (HasConnected())
+	{
+		send(CoreSocket, pBuffer, len, 0);
+	}
+}
+
 DWORD MosySocket::GetStatusCode() throw(MosySocketException)
 {
 	return ConnectStatus;

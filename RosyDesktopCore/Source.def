@@ -1,0 +1,5 @@
+LIBRARY RosyDesktopCore
+EXPORTS
+LoadStartMenu @1
+ExecuteStartMenu @2
+GetStartMenu @3

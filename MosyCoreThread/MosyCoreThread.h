@@ -22,6 +22,7 @@ DWORD __stdcall ReceiverThread(LPVOID LParam)
 	CoreStruct* Core = (CoreStruct*)LParam;
 	MosyThreadManager* ThreadManager = Core->ThreadManager;
 	MosyMessageQueue* Queue = Core->MessageQueue;
+	MosyWebSocketManager* WebSocketManager = Core->WebSocketManager;
 	//MessageBox(NULL, L"ReceiverRun!", L"Run", MB_OK);
 	char str[1000];
 	sprintf(str, "Mosy Core Receiver Thread Started on Port %d", Port);
@@ -48,6 +49,7 @@ DWORD __stdcall ReceiverThread(LPVOID LParam)
 				ThreadParamStruct Struct;
 				Struct.Queue = Queue;
 				Struct.TargetSocket = sAccept.GetHandler();
+				Struct.WebSocketManager = WebSocketManager;
 				SOCKET s = sAccept.GetHandler();
 				Queue->PushRequestSocket(s);
 				ThreadManager->CreateThread(InitThread, LParam);

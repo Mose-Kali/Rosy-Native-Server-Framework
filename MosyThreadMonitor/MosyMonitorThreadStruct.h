@@ -3,6 +3,6 @@
 
 struct MosyMonitorStruct
 {
-	HANDLE ThreadHandle;
-	MosyThreadManager* Manager;
+	HANDLE ThreadHandle;/*
+	MosyThreadManager* Manager;*/
 };

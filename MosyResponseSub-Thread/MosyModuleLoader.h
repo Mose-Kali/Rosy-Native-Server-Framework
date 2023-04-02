@@ -26,7 +26,7 @@ public:
 		MOSY_MODULE_LOADER_FAILED_TO_LOAD_MODULE,
 		MOSY_MODULE_LOADER_FAILED_TO_LOAD_RESTFUL_CONTROLLER,
 		MOSY_MODULE_LOADER_FAILED_TO_LOAD_VIEW_CONTROLLER,
-		MOSY_MODULE_LOADER_FAILED_TO_LOAD_DATABASE_INTERFACE,
+		MOSY_MODULE_LOADER_FAILED_TO_LOAD_FUNCTION,
 	};
 	struct MosyModuleLoaderException :public exception
 	{
@@ -51,7 +51,7 @@ public:
 			case MOSY_MODULE_LOADER_FAILED_TO_LOAD_VIEW_CONTROLLER:
 				return "Failed to Load View Controller,Make Sure the Controller Name you have Registried is Right.";
 				break;
-			case MOSY_MODULE_LOADER_FAILED_TO_LOAD_DATABASE_INTERFACE:
+			case MOSY_MODULE_LOADER_FAILED_TO_LOAD_FUNCTION:
 				return "Failed to Load Database Interface,Make Sure the Interface you have Registried is Right.";
 				break;
 			default:

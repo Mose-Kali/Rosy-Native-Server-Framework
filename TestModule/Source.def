@@ -1,4 +1,12 @@
 LIBRARY TestLibrary
 EXPORTS
-TestRest @1
+Execute @1
 TestView @2
+CallWin @3
+CallMessage @4
+CallMoe @5
+CallPRTS @6
+CallSettings @7
+GetStartMenu @8
+ExecuteCommand @9
+Initialize @10

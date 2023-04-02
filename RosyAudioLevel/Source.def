@@ -1,0 +1,7 @@
+LIBRARY RosyAudioLevel
+EXPORTS
+RosyAudioLevel @1
+RosyAudioControlNext @2
+RosyAudioControlPause @3
+RosyAudioControlPrevious @4
+Initialize @5

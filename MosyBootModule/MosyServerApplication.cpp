@@ -2,6 +2,7 @@
 #include "MosyServerApplication.h"
 #include "CoreStruct.h"
 #include "MosyMessageQueue.h"
+#include "MosyWebSocketManager.h"
 
 /*
 Written By Moss
@@ -23,9 +24,11 @@ void MosyServerApplication::Boot()
 	MosyMessageQueue MessageQueue;
 	MosyModuleManager ModuleManager;
 	MosyThreadManager ThreadManager;
+	MosyWebSocketManager WebSocketManager;
 	Struct.MessageQueue = &MessageQueue;
 	Struct.ThreadManager = &ThreadManager;
 	Struct.ModuleManager = &ModuleManager;
+	Struct.WebSocketManager = &WebSocketManager;
 	MosyGobalManager::ThreadManager.Manager = Struct.ThreadManager;
 	HANDLE Receiver = MosyGobalManager::ThreadManager.CreateCoreThread(ReceiverThread, &Struct);
 	::SetUnhandledExceptionFilter(MosyUnhandledExceptionFilter);

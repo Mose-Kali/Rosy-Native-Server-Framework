@@ -18,4 +18,5 @@ void MosyRequestPackage::operator=(MosyRequestPackage p)
 	Params = p.Params;
 	TargetInterface = p.TargetInterface;
 	Method = p.Method;
+	RequsetParams = p.RequsetParams;
 }

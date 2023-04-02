@@ -13,13 +13,14 @@ MosyValue :
 #endif
 {
 protected:
-	std::wstring Value;
+	std::string Value;
 public:
 	MosyValue();
 	MosyValue(std::wstring s);
 	int GetInteger();
 	double GetDouble();
 	std::wstring GetString();
+	std::string GetAString();
 	bool GetBoolean();
 	virtual MosyObject* obj()override;
 	bool operator <(const MosyValue& MV)const;

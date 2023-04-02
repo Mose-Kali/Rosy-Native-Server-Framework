@@ -36,6 +36,7 @@ public:
 	MosyValue Method;
 	std::wstring TargetInterface;
 	MosyMap Params;
+	MosyMap RequsetParams;
 	MosyRequestPackage();
 	~MosyRequestPackage();
 	void operator=(MosyRequestPackage p);

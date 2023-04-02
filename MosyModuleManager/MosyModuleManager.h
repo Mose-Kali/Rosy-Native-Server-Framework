@@ -29,7 +29,9 @@ public:
 	{
 		MOSY_MODULE_FAILED_TO_LOAD_MODULE,
 		MOSY_MODULE_FAILED_TO_LOAD_RESTFUL_CONTROLLER,
-		MOSY_MODULE_FAILED_TO_LOAD_DATABASE_INTERFACE,
+		MOSY_MODULE_FAILED_TO_LOAD_VIEW_CONTROLLER,
+		MOSY_MODULE_FAILED_TO_LOAD_FUNCTION,
+		MOSY_MODULE_FAILED_TO_LOAD_INTERCEPTOR,
 		MOSY_MODULE_UNKNOW_ERROR,
 	};
 	struct MosyModuleException :public exception
@@ -49,8 +51,14 @@ public:
 			case MOSY_MODULE_FAILED_TO_LOAD_RESTFUL_CONTROLLER:
 				return "MosyModuleManager:Failed to Load Restful Controller,Make Sure the Controller Name you have Registried is Right.";
 				break;
-			case MOSY_MODULE_FAILED_TO_LOAD_DATABASE_INTERFACE:
-				return "MosyModuleManager:Failed to Load Database Interface,Make Sure the Interface you have Registried is Right.";
+			case MOSY_MODULE_FAILED_TO_LOAD_FUNCTION:
+				return "MosyModuleManager:Failed to Load Function,Make Sure the Interface you have Registried is Right.";
+				break;
+			case MOSY_MODULE_FAILED_TO_LOAD_VIEW_CONTROLLER:
+				return "MosyModuleManager:Failed to Load View Controller,Make Sure the Interface you have Registried is Right.";
+				break;
+			case MOSY_MODULE_FAILED_TO_LOAD_INTERCEPTOR:
+				return "MosyModuleManager:Failed to Load Interceptor,Make Sure the Interface you have Registried is Right.";
 				break;
 			default:
 				return "MosyModuleManager:Failed to Load Module,Unkonw Error.";
@@ -63,11 +71,12 @@ public:
 		}
 	};
 	MosyModuleManager();
-	RestfulControllerTemplate LoadRestfulController(MosyValue ControllerName);
-	ViewControllerTemplate LoadViewController(MosyValue ControllerName);
+	RestfulControllerTemplate LoadRestfulController(MosyEnvironment* Environment, MosyValue ControllerName);
+	ViewControllerTemplate LoadViewController(MosyEnvironment* Environment, MosyValue ControllerName);
 	MosyFunctionTemplate LoadFunction(MosyValue FunctionName);
-	MosyValue ExecuteRestfulController(MosyValue ControllerName, MosyEnvironment Environment, MosyControllerParams Params);
-	MosyViewModule ExecuteViewController(MosyValue ControllerName, MosyEnvironment Environment, MosyControllerParams Params);
+	MosyInterceptor LoadInterceptor(MosyValue InterceptorName);
+	MosyValue ExecuteRestfulController(MosyValue ControllerName, MosyEnvironment* Environment, MosyControllerParams Params);
+	MosyViewModule ExecuteViewController(MosyValue ControllerName, MosyEnvironment* Environment, MosyControllerParams Params);
 	MosyFunctionResult ExecuteFunction(MosyValue ControllerName, MosyEnvironment Environment, MosyControllerParams Params);
 };
 

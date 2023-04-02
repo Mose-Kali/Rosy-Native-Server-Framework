@@ -23,32 +23,32 @@
     <ProjectGuid>{AC7CB7E4-9D5E-4815-B922-8DF8A9CED4D7}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>MosyWebServerFramework</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -182,6 +182,9 @@
     <ProjectReference Include="..\MosyBootModule\MosyBootModule.vcxproj">
       <Project>{ef68ef51-6799-475c-972c-f52c093c1762}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\MosyJSONSerializer\MosyJSONSerializer.vcxproj">
+      <Project>{bd477b08-6222-45fa-8cf3-41222f31ca8c}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\MosyRegistryManager\MosyRegistryManager.vcxproj">
       <Project>{e13c5fdf-be95-4af1-b492-9bf46461e766}</Project>
     </ProjectReference>
@@ -190,6 +193,9 @@
     </ProjectReference>
     <ProjectReference Include="..\MosyResponseBuilder\MosyResponseBuilder.vcxproj">
       <Project>{625c2bbc-9107-4586-bbab-9ddbac816d37}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\MosyThreadMonitor\MosyThreadMonitor.vcxproj">
+      <Project>{ac1c731a-4767-4015-adb8-e5b7541c6b0d}</Project>
     </ProjectReference>
     <ProjectReference Include="..\Win32SocketLib\Win32SocketLib.vcxproj">
       <Project>{c6549537-33e7-47de-96a3-00a4b353e19d}</Project>

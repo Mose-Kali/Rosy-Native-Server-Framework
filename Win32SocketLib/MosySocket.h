@@ -92,6 +92,7 @@ public:
 	std::wstring Receive();
 	void Send(std::wstring Msg);
 	void Send(std::string Msg);
+	void Send(char* pBuffer, int len) throw(MosySocketException);
 	DWORD GetStatusCode();
 	MosySocket(SOCKET Socket);
 	void Send(std::vector<char> Msg, int size);

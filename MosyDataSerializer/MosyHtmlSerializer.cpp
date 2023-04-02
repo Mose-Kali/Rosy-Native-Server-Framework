@@ -38,6 +38,7 @@ MosyHtmlPackage MosyHtmlSerializer::AddFile(std::string FilePath)
 			int i = FilePath.find('/');
 			FilePath.replace(i, 1, "\\");
 		}
+		FilePath.replace(0, 1, "");
 		FilePath = MosyString::WString2String(sss) + FilePath;
 		FilePath = FilePath.substr(0, FilePath.find_last_not_of(L' ') + 1);
 	}
@@ -56,7 +57,7 @@ MosyHtmlPackage MosyHtmlSerializer::AddFile(std::string FilePath)
 	{
 		MosyHtmlPackage p;
 		p.Exit = false;
-		const char* strCharA_ = "<HTML><TITLE>Not Found</TITLE>\r\n<BODY><h1 align='center'>404</h1><br/><h1 align='center'>NOT FOUND.</h1>\r\n</BODY></HTML>\r\n";
+		const char* strCharA_ = "<HTML><TITLE>Not Found</TITLE>\r\n<BODY><h1 align='center'>404</h1><br/><h1 align='center'>NOT FOUND.</h1><br/><h1 align='center'>Mosy Server Framework</h1>\r\n</BODY></HTML>\r\n";
 		p.Html.insert(p.Html.end(), strCharA_, strCharA_ + strlen(strCharA_));
 		p.Length = p.Html.size();
 		p.type = L"text/html";

@@ -1,9 +1,4 @@
-﻿// SimpleHTTPServer.cpp
-// 功能：实现简单的web服务器功能，能同时响应多个浏览器的请求：
-//       1、如果该文件存在，则在浏览器上显示该文件；
-//       2、如果文件不存在，则返回404-file not found页面
-//       3、只支持GET、HEAD方法
-// HTTP1.1 与 1.0不同，默认是持续连接的(keep-alive)
+﻿
 
 #include "pch.h"
 #include <time.h>

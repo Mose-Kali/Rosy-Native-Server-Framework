@@ -47,10 +47,21 @@ MosyFunctionTemplate MosyModuleLoader::GetFunction(MosyModuleInstance Instance, 
 	MosyFunctionTemplate Function = (MosyFunctionTemplate)GetProcAddress((HINSTANCE)Instance.GetLLInteger(), MosyString::WString2String(DatabaseInterfaceName.GetString()).c_str());
 	if (Function == NULL)
 	{
-		throw MosyModuleLoaderException(MOSY_MODULE_LOADER_FAILED_TO_LOAD_RESTFUL_CONTROLLER);
+		throw MosyModuleLoaderException(MOSY_MODULE_LOADER_FAILED_TO_LOAD_FUNCTION);
 		return NULL;
 	}
 	return Function;
+}
+
+MosyInterceptor MosyModuleLoader::GetInterceptor(MosyModuleInstance Instance, MosyValue InterceptorName)
+{
+	MosyInterceptor Interceptor = (MosyInterceptor)GetProcAddress((HINSTANCE)Instance.GetLLInteger(), MosyString::WString2String(InterceptorName.GetString()).c_str());
+	if (Interceptor == NULL)
+	{
+		throw MosyModuleLoaderException(MOSY_MODULE_LOADER_FAILED_TO_LOAD_INTERCEPTOR);
+		return NULL;
+	}
+	return Interceptor;
 }
 
 void MosyModuleLoader::FreeMosyModule(HINSTANCE ModuleInstance)
